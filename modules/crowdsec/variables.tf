@@ -40,7 +40,7 @@ variable "aws_apigateway_id" {
   default = ""
 }
 
-variable "aws_apigateway_api_execution_arn"{
+variable "aws_apigateway_api_execution_arn" {
   type    = string
   default = ""
 }

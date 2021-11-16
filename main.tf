@@ -4,18 +4,18 @@ provider "aws" {
 
 
 module "crowdsec" {
-  source                             = "./modules/crowdsec"
-  collections                        = ["crowdsecurity/apache2"]
+  source                           = "./modules/crowdsec"
+  collections                      = ["crowdsecurity/apache2"]
   aws_apigateway_id                = module.api_gateway.apigatewayv2_api_id
   aws_apigateway_api_execution_arn = module.api_gateway.apigatewayv2_api_execution_arn
-  cloudwatch_group_name = module.cloudwatch_log-group.cloudwatch_log_group_name
+  cloudwatch_group_name            = module.cloudwatch_log-group.cloudwatch_log_group_name
 }
 
 
 module "cloudwatch_log-group" {
-  source  = "terraform-aws-modules/cloudwatch/aws//modules/log-group"
-  version = "2.1.0"
-  name = "API-Gateway-Execution-Logs-${module.api_gateway.apigatewayv2_api_id}/test/"
+  source            = "terraform-aws-modules/cloudwatch/aws//modules/log-group"
+  version           = "2.1.0"
+  name              = "API-Gateway-Execution-Logs-${module.api_gateway.apigatewayv2_api_id}/test/"
   retention_in_days = 7
 }
 

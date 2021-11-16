@@ -16,7 +16,7 @@ module "authorizer" {
   vpc_security_group_ids = [module.crowdsec-sg.security_group_id]
   attach_network_policy  = true
   environment_variables = {
-    LAPI_KEY = random_string.bouncer_key.id
+    LAPI_KEY              = random_string.bouncer_key.id
     GOOGLE_CAPTCHA_SECRET = var.captcha_secret
   }
   allowed_triggers = {

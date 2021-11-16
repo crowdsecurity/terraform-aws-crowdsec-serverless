@@ -28,7 +28,7 @@ module "crowdsec-sg" {
       rule = "all-all"
     },
   ]
-  egress_rules = [ "all-all" ]
+  egress_rules = ["all-all"]
 }
 
 resource "aws_service_discovery_private_dns_namespace" "crowdsec" {
