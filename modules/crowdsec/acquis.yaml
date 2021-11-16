@@ -1,0 +1,11 @@
+source: cloudwatch
+group_name: ${cloudwatch_group}
+stream_regexp: ${stream_regexp}
+log_level: debug
+aws_profile: default
+aws_region: ${aws_region}
+stream_read_timeout: 5m
+max_stream_age: 5m
+labels:
+ type: apache2
+
