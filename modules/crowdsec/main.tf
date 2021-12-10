@@ -67,14 +67,14 @@ resource "aws_ecs_task_definition" "crowdsec-lapi" {
   task_role_arn            = aws_iam_role.ecs_task_execution_role.arn
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu                      = 256
-  memory                   = 512
+  cpu                      = var.crowdsec_cpu
+  memory                   = var.crowdsec_memory
   container_definitions = jsonencode([
     {
       name      = "lapi"
-      image     = "public.ecr.aws/y9y5c8o6/crowdsec:latest@sha256:4b9c3489791122337d59efeca123852b519ad474cf8cd2d94e306873f62abdf3"
-      cpu       = 10
-      memory    = 512
+      image     = "registry.hub.docker.com/crowdsecurity/crowdsec:v1.2.1" # Use docker image and try to avoid sha 
+      cpu       = var.crowdsec_cpu                                        # TODO make this configurable. Default 128 vcpu,  
+      memory    = var.crowdsec_memory
       essential = true
       portMappings = [
         {
@@ -104,14 +104,6 @@ resource "aws_ecs_task_definition" "crowdsec-lapi" {
           name  = "PARSERS"
           value = join(" ", var.parsers)
         },
-        {
-          name  = "AGENT_USERNAME"
-          value = "a"
-        },
-        {
-          name  = "AGENT_PASSWORD"
-          value = "a"
-        }
       ],
       logConfiguration = {
         logDriver = "awslogs"
@@ -128,14 +120,6 @@ resource "aws_ecs_task_definition" "crowdsec-lapi" {
 resource "aws_cloudwatch_log_group" "crowdsec-lapi" {
   name              = "crowdsec-lapi/logs"
   retention_in_days = 7
-}
-
-resource "aws_instance" "console" {
-  ami                    = "ami-0912f71e06545ad88"
-  instance_type          = "t3.micro"
-  vpc_security_group_ids = [module.crowdsec-sg.security_group_id]
-  subnet_id              = module.vpc.public_subnets[0]
-  key_name               = "sbscrowdsecindia"
 }
 
 data "aws_region" "current" {}

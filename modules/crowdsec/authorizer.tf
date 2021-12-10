@@ -29,7 +29,7 @@ module "authorizer" {
 }
 
 resource "aws_apigatewayv2_authorizer" "gateway_authorizer" {
-  count                             = var.aws_apigateway_id == "" ? 0 : 1
+  # count                             = var.aws_apigateway_id == "" ? 0 : 1
   api_id                            = var.aws_apigateway_id
   authorizer_type                   = "REQUEST"
   authorizer_uri                    = module.authorizer.lambda_function_invoke_arn

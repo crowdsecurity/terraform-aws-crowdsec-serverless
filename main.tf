@@ -9,6 +9,7 @@ module "crowdsec" {
   aws_apigateway_id                = module.api_gateway.apigatewayv2_api_id
   aws_apigateway_api_execution_arn = module.api_gateway.apigatewayv2_api_execution_arn
   cloudwatch_group_name            = module.cloudwatch_log-group.cloudwatch_log_group_name
+  captcha_secret                   = "YOUR_CAPTCHA_SECRET"
 }
 
 

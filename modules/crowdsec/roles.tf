@@ -24,8 +24,28 @@ resource "aws_iam_role_policy" "lapi-cloudwatch-policy" {
         {
             "Action": [
                 "autoscaling:Describe*",
-                "cloudwatch:*",
-                "logs:*"
+                "logs:GetLogRecord",
+                "logs:PutDestinationPolicy",
+                "logs:StartQuery",
+                "logs:StopQuery",
+                "logs:TestMetricFilter",
+                "logs:PutQueryDefinition",
+                "logs:CreateLogGroup",
+                "logs:GetLogDelivery",
+                "logs:PutLogEvents",
+                "logs:CreateLogDelivery",
+                "logs:CreateExportTask",
+                "logs:PutMetricFilter",
+                "logs:CreateLogStream",
+                "logs:GetQueryResults",
+                "logs:UpdateLogDelivery",
+                "logs:GetLogEvents",
+                "logs:FilterLogEvents",
+                "logs:PutSubscriptionFilter",
+                "logs:PutRetentionPolicy",
+                "logs:GetLogGroupFields",
+                "logs:PutDestination",
+                "logs:DescribeLogStreams"
             ],
             "Effect": "Allow",
             "Resource": "*"
