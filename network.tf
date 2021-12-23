@@ -3,7 +3,6 @@ module "vpc" {
   name   = "crowdsec-vpc"
   cidr   = "10.0.0.0/16"
   azs    = data.aws_availability_zones.az.names
-
   private_subnets            = [for i in range(length(data.aws_availability_zones.az.names)) : cidrsubnet("10.0.0.0/16", 8, i)]
   public_subnets             = [for i in range(length(data.aws_availability_zones.az.names), 2 * length(data.aws_availability_zones.az.names)) : cidrsubnet("10.0.0.0/16", 8, i)]
   database_subnet_group_name = "csdbsubnetgroup"

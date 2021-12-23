@@ -1,2 +1,0 @@
-requests
-https://github.com/sbs2001/pycrowdsec/archive/dev.zip

@@ -54,3 +54,24 @@ resource "aws_iam_role_policy" "lapi-cloudwatch-policy" {
   }
   EOF
 }
+
+resource "aws_iam_role_policy" "lapi-exec-policy" {
+  role   = aws_iam_role.ecs_task_execution_role.id
+  policy = <<-EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+            "ssmmessages:CreateControlChannel",
+            "ssmmessages:CreateDataChannel",
+            "ssmmessages:OpenControlChannel",
+            "ssmmessages:OpenDataChannel"
+            ],
+            "Effect": "Allow",
+            "Resource": "*"
+        }
+    ]
+  }
+  EOF
+}

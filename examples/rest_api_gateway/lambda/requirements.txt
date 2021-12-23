@@ -1,0 +1,4 @@
+requests
+pycrowdsec==0.0.2
+redis
+names
