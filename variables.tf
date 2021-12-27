@@ -76,6 +76,18 @@ variable "aws_apigateway_v2_id" {
   description = "ID of api gateway to deploy crowdsec powered authorizer"
 }
 
+variable "enable_v2_authorizer" {
+  type        = bool
+  default     = false
+  description = "Create authorizer for HTTP api gateway"
+}
+
+variable "enable_v1_authorizer" {
+  type        = bool
+  default     = false
+  description = "Create authorizer for REST api gateway"
+}
+
 variable "aws_apigateway_v2_api_execution_arn" {
   type        = string
   default     = ""

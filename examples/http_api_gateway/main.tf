@@ -1,18 +1,15 @@
 provider "aws" {
-  region = "ap-south-1"
 }
 
 
 module "crowdsec" {
-  # depends_on = [
-  #   aws_apigatewayv2_api.example
-  # ]
   source                           = "../../"
   collections                      = ["crowdsecurity/apache2"]
   aws_apigateway_v2_id                = aws_apigatewayv2_api.example.id
   aws_apigateway_v2_api_execution_arn = aws_apigatewayv2_api.example.execution_arn
   cloudwatch_group_name            = module.cloudwatch_log-group.cloudwatch_log_group_name
   captcha_secret                   = "YOUR_CAPTCHA_SECRET"
+  enable_v2_authorizer = true
 }
 
 
@@ -86,7 +83,6 @@ resource "aws_apigatewayv2_api" "example" {
 resource "aws_apigatewayv2_integration" "example" {
   api_id           = aws_apigatewayv2_api.example.id
   integration_type = "AWS_PROXY"
-
   connection_type    = "INTERNET"
   description        = "Lambda example"
   integration_method = "POST"
