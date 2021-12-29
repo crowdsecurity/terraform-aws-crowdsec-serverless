@@ -44,31 +44,6 @@ module "lambda" {
   }
 }
 
-# // api gateway
-# module "api_gateway" {
-#   source                 = "terraform-aws-modules/apigateway-v2/aws"
-#   create_api_domain_name = false
-#   name                   = "testapi"
-#   description            = "My awesome HTTP API Gateway"
-#   protocol_type          = "HTTP"
-
-
-#   # Access logs
-#   default_stage_access_log_destination_arn = module.cloudwatch_log-group.cloudwatch_log_group_arn
-#   default_stage_access_log_format          = "$context.identity.sourceIp $context.identity.caller $context.identity.user [$context.requestTime] \"$context.httpMethod $context.resourcePath $context.protocol\" $context.status $context.responseLength $context.requestId"
-
-#   # Routes and integrations
-#   integrations = {
-#     "GET /" = {
-#       lambda_arn             = module.lambda.lambda_function_arn
-#       payload_format_version = "2.0"
-#       timeout_milliseconds   = 12000
-#       authorization_type     = "CUSTOM"
-#       authorizer_id          = module.crowdsec.aws_apigatewayv2_authorizer_id
-#     }
-#   }
-# }
-
 resource "aws_apigatewayv2_api" "example" {
   name          = "example-http-api"
   protocol_type = "HTTP"

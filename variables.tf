@@ -73,7 +73,7 @@ variable "aws_apigateway_api_execution_arn" {
 variable "aws_apigateway_v2_id" {
   type        = string
   default     = ""
-  description = "ID of api gateway to deploy crowdsec powered authorizer"
+  description = "ID of api gateway v2 to deploy crowdsec powered authorizer"
 }
 
 variable "enable_v2_authorizer" {
@@ -91,5 +91,5 @@ variable "enable_v1_authorizer" {
 variable "aws_apigateway_v2_api_execution_arn" {
   type        = string
   default     = ""
-  description = "Execution ARN of api gateway to deploy crowdsec powered authorizer"
+  description = "Execution ARN of api gateway v2 to deploy crowdsec powered authorizer"
 }

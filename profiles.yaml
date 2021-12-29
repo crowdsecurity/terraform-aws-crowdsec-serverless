@@ -3,7 +3,7 @@ name: default_ip_remediation
 filters:
  - Alert.GetScope() == "Ip"
 decisions:
- - type: ban
+ - type: captcha
    duration: 4h
 notifications:
 #   - slack_default  # Set the webhook in /etc/crowdsec/notifications/slack.yaml before enabling this.

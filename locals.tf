@@ -3,8 +3,8 @@ locals {
   acquis   = var.acquis != "" ? var.acquis : "${path.module}/acquis.yaml"
   config   = var.config != "" ? var.config : "${path.module}/config.yaml"
 
-  allowed_triggers = var.aws_apigateway_id != "" ? (
-    var.aws_apigateway_v2_id != "" ?
+  allowed_triggers = var.enable_v1_authorizer ? (
+    var.enable_v2_authorizer  ?
     {
       HTTPGateway = {
         service    = "apigateway"
@@ -21,7 +21,7 @@ locals {
       },
     }
     ) : (
-    var.aws_apigateway_v2_id != "" ? {
+    var.enable_v2_authorizer  ? {
       HTTPGateway = {
         service    = "apigateway"
         source_arn = "${var.aws_apigateway_v2_api_execution_arn}/*/*"
