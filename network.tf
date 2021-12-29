@@ -1,4 +1,5 @@
 module "vpc" {
+  count = var.create_vpc ? 1 : 0
   source = "terraform-aws-modules/vpc/aws"
   name   = "crowdsec-vpc"
   cidr   = "10.0.0.0/16"
@@ -13,14 +14,14 @@ module "vpc" {
 
 resource "aws_db_subnet_group" "dbsubnet" {
   name       = "dbsubnetgroup"
-  subnet_ids = module.vpc.private_subnets
+  subnet_ids = var.create_vpc ? module.vpc.private_subnets: var.private_subnets
 }
 
 
 module "crowdsec-sg" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "4.3.0"
-  vpc_id  = module.vpc.vpc_id
+  vpc_id  = var.create_vpc ? module.vpc.vpc_id : var.vpc_id
   name    = "crowdsecsg"
   ingress_with_self = [
     {
@@ -33,7 +34,7 @@ module "crowdsec-sg" {
 resource "aws_service_discovery_private_dns_namespace" "crowdsec" {
   name        = "crowdsec.local"
   description = "crowdsec LAPI"
-  vpc         = module.vpc.vpc_id
+  vpc         = var.create_vpc ? module.vpc.vpc_id : var.vpc_id
 }
 
 resource "aws_service_discovery_service" "crowdsec" {

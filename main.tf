@@ -51,7 +51,7 @@ resource "aws_ecs_service" "crowdsec-service" {
   launch_type            = "FARGATE"
   network_configuration {
     security_groups = [module.crowdsec-sg.security_group_id]
-    subnets         = module.vpc.private_subnets
+    subnets         = var.create_vpc ? module.vpc.private_subnets : var.private_subnets
   }
   deployment_minimum_healthy_percent = 100
   deployment_maximum_percent         = 200

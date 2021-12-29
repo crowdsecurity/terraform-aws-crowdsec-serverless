@@ -57,6 +57,24 @@ variable "scenarios" {
   description = "List of scenarios to install"
 }
 
+variable "create_vpc" {
+  default = true
+  type = bool
+  description = "Whether to create a separate VPC to deploy CrowdSec infra in"
+}
+
+variable "vpc_id" {
+  default = ""
+  type = string
+  description = "ID of VPC to deploy CrowdSec related infra in. Not required if create_vpc=true"
+}
+
+variable "private_subnets" {
+  type = list(string)
+  default = []
+  description = "Private subnets to deploy CrowdSec infra in. Atleast 2 subnets should be provided, each in different AZ. MUST HAVE internet access. Not required if create_vpc=true"
+}
+
 variable "aws_apigateway_id" {
   type        = string
   default     = ""

@@ -12,7 +12,7 @@ module "authorizer" {
     }
   ]
   build_in_docker        = true
-  vpc_subnet_ids         = module.vpc.private_subnets
+  vpc_subnet_ids         = var.create_vpc ? module.vpc.private_subnets : var.private_subnets
   vpc_security_group_ids = [module.crowdsec-sg.security_group_id]
   attach_network_policy  = true
   environment_variables = {

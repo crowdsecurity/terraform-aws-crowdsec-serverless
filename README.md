@@ -1,3 +1,5 @@
+This terraform module allows users to protect AWS serverless stacks using CrowdSec. It deploys CrowdSec in a ECS fargate container. This CrowdSec instance reads logs from CloudWatch and infers malevolent IPs. It then creates a lambda authorizer and binds it to the provided API gateway. This authorizer then blocks/captcha IPs inferred by CrowdSec.
+
 ## Requirements
 
 | Name | Version |
@@ -45,6 +47,10 @@
 | [template_file.cs_acquis](https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/file) | data source |
 | [template_file.cs_config](https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/file) | data source |
 
+**Notes**
+- Depending upon your input `create_vpc` this module may create a VPC and subnets
+- RDS is created and used by CrowdSec to persist decisions, alerts, keys etc.
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -58,13 +64,16 @@
 | <a name="input_cloudwatch_group_name"></a> [cloudwatch\_group\_name](#input\_cloudwatch\_group\_name) | Cloudwatch group to read logs | `string` | n/a | yes |
 | <a name="input_collections"></a> [collections](#input\_collections) | Collections to install. | `list(string)` | `[]` | no |
 | <a name="input_config"></a> [config](#input\_config) | Path to file containing custom Crowdsec configration | `string` | `""` | no |
+| <a name="input_create_vpc"></a> [create\_vpc](#input\_create\_vpc) | Whether to create a separate VPC to deploy CrowdSec infra in | `bool` | `true` | no |
 | <a name="input_crowdsec_cpu"></a> [crowdsec\_cpu](#input\_crowdsec\_cpu) | Amount of vCPU units for CrowdSec task. | `number` | `256` | no |
 | <a name="input_crowdsec_memory"></a> [crowdsec\_memory](#input\_crowdsec\_memory) | Amount of memory for CrowdSec task | `number` | `512` | no |
 | <a name="input_enable_v1_authorizer"></a> [enable\_v1\_authorizer](#input\_enable\_v1\_authorizer) | Create authorizer for REST api gateway | `bool` | `false` | no |
 | <a name="input_enable_v2_authorizer"></a> [enable\_v2\_authorizer](#input\_enable\_v2\_authorizer) | Create authorizer for HTTP api gateway | `bool` | `false` | no |
 | <a name="input_parsers"></a> [parsers](#input\_parsers) | Parsers to install. | `list(string)` | `[]` | no |
+| <a name="input_private_subnets"></a> [private\_subnets](#input\_private\_subnets) | Private subnets to deploy CrowdSec infra in. Atleast 2 subnets should be provided, each in distinct AZ. MUST HAVE internet access. Not required if create\_vpc=true | `list(string)` | `[]` | no |
 | <a name="input_profiles"></a> [profiles](#input\_profiles) | Path to file containing custom Crowdsec profiles | `string` | `""` | no |
 | <a name="input_scenarios"></a> [scenarios](#input\_scenarios) | List of scenarios to install | `list(string)` | `[]` | no |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | ID of VPC to deploy CrowdSec related infra in. Not required if create\_vpc=true | `string` | `""` | no |
 
 ## Outputs
 

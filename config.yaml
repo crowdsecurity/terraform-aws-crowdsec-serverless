@@ -2,7 +2,7 @@ common:
   daemonize: true
   pid_dir: /var/run/
   log_media: file
-  log_level: debug
+  log_level: info
   log_dir: /var/log/
   working_dir: .
 config_paths:
